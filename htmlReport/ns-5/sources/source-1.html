@@ -1,0 +1,144 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > RadarGraphqlController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.sid.radarmicroservice.web</a>
+</div>
+
+<h1>Coverage Summary for Class: RadarGraphqlController (org.sid.radarmicroservice.web)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RadarGraphqlController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    20%
+  </span>
+  <span class="absValue">
+    (1/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    10%
+  </span>
+  <span class="absValue">
+    (1/10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package org.sid.radarmicroservice.web;
+&nbsp;
+&nbsp;import org.sid.radarmicroservice.dto.DtoRequest;
+&nbsp;import org.sid.radarmicroservice.entities.Radar;
+&nbsp;import org.sid.radarmicroservice.repositories.RadarRepository;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.graphql.data.method.annotation.Argument;
+&nbsp;import org.springframework.graphql.data.method.annotation.MutationMapping;
+&nbsp;import org.springframework.graphql.data.method.annotation.QueryMapping;
+&nbsp;import org.springframework.stereotype.Controller;
+&nbsp;import org.springframework.web.bind.annotation.RequestBody;
+&nbsp;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Controller
+<b class="fc">&nbsp;public class RadarGraphqlController {</b>
+&nbsp;    @Autowired
+&nbsp;    private RadarRepository radarRepository ;
+&nbsp;    @QueryMapping
+&nbsp;    public List&lt;Radar&gt; radarList (){
+<b class="nc">&nbsp;       return radarRepository.findAll();</b>
+&nbsp;    }
+&nbsp;    @QueryMapping
+&nbsp;    public Radar radarById(@Argument String idR){
+<b class="nc">&nbsp;        return  radarRepository.findById(idR).orElseThrow();</b>
+&nbsp;    }
+&nbsp;    @MutationMapping
+&nbsp;    public Radar updateRadar(@Argument String idR ,@RequestBody DtoRequest dtoRequest){
+<b class="nc">&nbsp;              Radar radar = radarRepository.findById(idR).orElseThrow(()-&gt;new RuntimeException(String.format(&quot;Account Not Found :)&quot; , idR)));</b>
+<b class="nc">&nbsp;              if (dtoRequest.getLatitude() != null) radar.setLatitude(dtoRequest.getLatitude());</b>
+<b class="nc">&nbsp;              if(dtoRequest.getLongitude() !=null) radar.setLatitude(dtoRequest.getLatitude());</b>
+<b class="nc">&nbsp;              if(dtoRequest.getVitesse_max_R()!=null) radar.setVitesse_max_R(dtoRequest.getVitesse_max_R());</b>
+<b class="nc">&nbsp;              radarRepository.save(radar);</b>
+<b class="nc">&nbsp;              return radar;</b>
+&nbsp;    }
+&nbsp;    @MutationMapping
+&nbsp;    public void deleteRadar(@Argument  String idR ){
+<b class="nc">&nbsp;         radarRepository.deleteById(idR);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-18 14:30</div>
+</div>
+</body>
+</html>

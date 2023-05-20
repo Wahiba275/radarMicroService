@@ -1,0 +1,22 @@
+type Query{
+    radarList : [Radar],
+    radarById(idR : String) : Radar,
+}
+
+type Mutation{
+    deleteRadar(idR : String ) : String,
+    updateRadar(idR : String , dtoRequest : DtoRequest ) : Radar
+}
+
+type Radar{
+    idR : ID ,
+    vitesse_maximale_R : Float,
+    longitude : Float,
+    latitude : Float
+}
+
+input DtoRequest {
+    vitesse_maximale_R : Float,
+    longitude : Float,
+    latitude : Float
+}
