@@ -1,14 +1,11 @@
 syntax = "proto3";
 option  java_package="org.sid.radarmicroservice.web.grpc.stubs";
 
-
 message RadarRequest {
   string radarId = 1;
   double maxSpeed = 2;
   string vehiculeId = 3;
 }
-
-
 
 message Infraction{
   string id = 1;

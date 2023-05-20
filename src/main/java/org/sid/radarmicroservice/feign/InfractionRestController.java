@@ -3,12 +3,11 @@ package org.sid.radarmicroservice.feign;
 
 import org.sid.radarmicroservice.model.Infraction;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @FeignClient(name = "INFRACTION-SERVICE")
 public interface InfractionRestController {
