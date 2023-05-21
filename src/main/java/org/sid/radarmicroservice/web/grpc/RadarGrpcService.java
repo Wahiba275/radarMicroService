@@ -30,13 +30,13 @@ public class RadarGrpcService extends RadarServiceGrpc.RadarServiceImplBase {
 
     @Override
     public void processRadar(RadarGrpc.RadarRequest request, StreamObserver<RadarGrpc.Infraction> responseObserver) {
-        String radarId = request.getRadarId();
-        String vehicleId = request.getVehiculeId();
-        Double vehicleSpeed = request.getMaxSpeed();
+        String radarId = request.getRadarId();//id radar
+        String vehicleId = request.getVehiculeId();//id vehicule
+        Double vehicleSpeed = request.getMaxSpeed();//vitesse de la vehicule
 
-        if(radarRepository.existsById(radarId) ){
-            Radar radar = radarRepository.findById(radarId).get();
-            Vehicule vehicle = immatriculationRestController.getVehicle(vehicleId);
+        if(radarRepository.findById(radarId) != null){//vérifier si l'id du radar non null
+            Radar radar = radarRepository.findById(radarId).get();//si oui on récupére ce radar
+            Vehicule vehicle = immatriculationRestController.getVehicle(vehicleId);//récupére la véhicule avec id
             if (vehicleSpeed > radar.getVitesse_max_R()){
                 Infraction infraction = Infraction.builder()
                         .idF(null)
