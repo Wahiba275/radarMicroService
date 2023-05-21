@@ -34,11 +34,11 @@ public class RadarGrpcService extends RadarServiceGrpc.RadarServiceImplBase {
         String vehicleId = request.getVehiculeId();//id vehicule
         Double vehicleSpeed = request.getMaxSpeed();//vitesse de la vehicule
 
-        if(radarRepository.findById(radarId) != null){//vérifier si l'id du radar non null
+        if(radarRepository.findById(radarId).isPresent()){//vérifier si l'id du radar non null
             Radar radar = radarRepository.findById(radarId).get();//si oui on récupére ce radar
             Vehicule vehicle = immatriculationRestController.getVehicle(vehicleId);//récupére la véhicule avec id
-            if (vehicleSpeed > radar.getVitesse_max_R()){
-                Infraction infraction = Infraction.builder()
+            if (vehicleSpeed > radar.getVitesse_max_R()){// on test si la véhicule a dépassée la vitesse du radar
+                Infraction infraction = Infraction.builder()// créer une infraction
                         .idF(null)
                         .date(new Date().toString())
                         .vitesseVehicule(vehicleSpeed)
@@ -48,7 +48,7 @@ public class RadarGrpcService extends RadarServiceGrpc.RadarServiceImplBase {
                         .vehicule(vehicle)
                         .radar(radar)
                         .build();
-                infraction = infractionRestController.saveInfraction(infraction);
+                infraction = infractionRestController.saveInfraction(infraction);//ajouter l'infraction
                 infraction.setVehicule(vehicle);
                 infraction.setRadar(radar);
                 RadarGrpc.Infraction response = RadarGrpc.Infraction.newBuilder()

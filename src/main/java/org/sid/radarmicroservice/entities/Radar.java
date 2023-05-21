@@ -14,6 +14,7 @@ public class Radar {
     private Double vitesse_max_R ;
     private Double longitude ;
     private Double latitude ;
+    private String num_matricule ;
     @Transient
     private List<Infraction> infractions;
 
