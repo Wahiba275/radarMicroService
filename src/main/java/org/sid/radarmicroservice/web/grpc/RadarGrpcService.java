@@ -28,7 +28,6 @@ public class RadarGrpcService extends RadarServiceGrpc.RadarServiceImplBase {
         this.immatriculationRestController = immatriculationRestController;
     }
 
-
     @Override
     public void processRadar(RadarGrpc.RadarRequest request, StreamObserver<RadarGrpc.Infraction> responseObserver) {
         String radarId = request.getRadarId();
@@ -50,8 +49,8 @@ public class RadarGrpcService extends RadarServiceGrpc.RadarServiceImplBase {
                         .radar(radar)
                         .build();
                 infraction = infractionRestController.saveInfraction(infraction);
-                infraction.setMatVehicule(vehicle.getNum_matricule());
-                infraction.setRadarID(radar.getIdR());
+                infraction.setVehicule(vehicle);
+                infraction.setRadar(radar);
                 RadarGrpc.Infraction response = RadarGrpc.Infraction.newBuilder()
                         .setId(infraction.getIdF())
                         .setDate(infraction.getDate())
@@ -61,8 +60,15 @@ public class RadarGrpcService extends RadarServiceGrpc.RadarServiceImplBase {
                         .setVehicleId(infraction.getVehiculeID())
                         .setVehicle(RadarGrpc.Vehicle.newBuilder()
                                 .setId(infraction.getVehicule().getId())
+                                .setRegNumber(infraction.getVehicule().getNum_matricule())
                                 .setBrand(infraction.getVehicule().getMarque())
                                 .setModel(infraction.getVehicule().getModele())
+                                .setOwner(RadarGrpc.Owner.newBuilder()
+                                        .setId(infraction.getVehicule().getProprietaire().getIdp())
+                                        .setName(infraction.getVehicule().getProprietaire().getNom())
+                                        .setBirthDate(infraction.getVehicule().getProprietaire().getDate_Naissance())
+                                        .setEmail(infraction.getVehicule().getProprietaire().getEmail())
+                                        .build())
                                 .build())
                         .setRadar(RadarGrpc.Radar.newBuilder()
                                 .setId(infraction.getRadar().getIdR())
@@ -72,9 +78,11 @@ public class RadarGrpcService extends RadarServiceGrpc.RadarServiceImplBase {
                                 .build())
                         .build();
                 responseObserver.onNext(response);
-                responseObserver.onCompleted();
             }
         }
-
+        else {
+            responseObserver.onNext(null);
+        }
+        responseObserver.onCompleted();
     }
 }

@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "IMMATRICULATION-SERVICE")
 public interface ImmatriculationRestController {
 
-    @GetMapping("/web/owners/{id}")
+    @GetMapping("/web/proprietaires/{id}")
     Proprietaire getOwner(@PathVariable("id") Long id);
 
-    @GetMapping("/web/vehicles/{id}")
+    @GetMapping("/web/vehicules/{id}")
     Vehicule getVehicle(@PathVariable("id") String id);
 }

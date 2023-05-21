@@ -13,6 +13,7 @@ public class Vehicule {
     private Integer puissance_fescale;
     private String modele ;
     private Double vitesse ;
+    private  Proprietaire proprietaire ;
 
 }
 
